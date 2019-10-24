@@ -32,14 +32,17 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
+
+        /*
         if(sharedpreferences.contains("id")) {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         }
-        else {
-            setContentView(R.layout.activity_login);
+        else {*/
+
             etName = findViewById(R.id.etName);
             etPassword = findViewById(R.id.etPassword);
             btnLogin = findViewById(R.id.btnLogin);
@@ -93,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
             isWriteStoragePermissionGranted();
-        }
+
 
     }
 

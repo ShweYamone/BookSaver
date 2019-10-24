@@ -17,29 +17,26 @@ public interface BookDAO {
     @Query("SELECT * FROM book")
     List<Book> getAll();
 
-    @Query("SELECT * FROM book where category LIKE :category")
-    List<Book> getByCategory(String category);
-
-    @Query("SELECT * FROM book where saved = :saved")
-    List<Book> getBySaved(String saved);
-
     @Query("SELECT * FROM book where id = :id")
     Book findByID(String id);
 
-    @Query("SELECT COUNT(*) from book")
-    int countBooks();
+    @Query("SELECT * FROM book where authorName = :authorName")
+    List<Book> findByAuthorName(String authorName);
+
+    @Query("SELECT * FROM book where id = :userId")
+    List<Book> getBooksByUserId(int userId);
+
+    @Query("SELECT * FROM book where id IN (:bookIds)")
+    List<Book> getBooksByBookIds(int[] bookIds);
 
     @Insert
-    void insert(Book book);
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(Book... books);
+    void insert(Book... book);
 
     @Delete
-    void delete(Book book);
+    void delete(Book... book);
 
     @Update
-    public void updateBook(Book book);
+    void updateBook(Book... book);
 
 
 }

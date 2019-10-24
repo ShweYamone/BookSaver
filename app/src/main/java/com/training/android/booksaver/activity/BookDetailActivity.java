@@ -1,13 +1,19 @@
 package com.training.android.booksaver.activity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,24 +22,34 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.training.android.booksaver.DB.AppDatabase;
 import com.training.android.booksaver.Entity.Book;
+import com.training.android.booksaver.Entity.Favourite;
 import com.training.android.booksaver.R;
 
 import java.io.File;
 
 public class BookDetailActivity extends AppCompatActivity {
+
+    SharedPreferences sharedpreferences;
+    public static final String mypreference = "mypref";
+
     public ImageView bookImg;
     public TextView bookName, authorName, category, description;
-    public Button btnEdit, btnDelete;
+    public Button btnEdit, btnDelete, btnFavourite;
     private Book book;
-    String id = "";
+    private String bookId = "";
+
+    private Boolean isFavourite = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_detail);
 
+        sharedpreferences = getSharedPreferences(mypreference,
+                Context.MODE_PRIVATE);
+
         if(getIntent().getExtras().getString("id") != null) {
-            id = getIntent().getExtras().getString("id");
+            bookId = getIntent().getExtras().getString("id");
         }
         bookImg = findViewById(R.id.ivBookImg);
         bookName = findViewById(R.id.tvBookName);
@@ -44,9 +60,8 @@ public class BookDetailActivity extends AppCompatActivity {
         btnEdit = findViewById(R.id.btnEdit);
         btnDelete = findViewById(R.id.btnDelete);
 
-        book = AppDatabase.getAppDatabase(BookDetailActivity.this).bookDAO().findByID(id);
-        Log.i("Book", book.getBookName());
-        Log.i("Book1", book.getAuthorName());
+        book = AppDatabase.getAppDatabase(BookDetailActivity.this).bookDAO().findByID(bookId);
+
         bookName.setText(book.getBookName());
         authorName.setText(book.getAuthorName());
         category.setText(book.getCategory());
@@ -56,7 +71,6 @@ public class BookDetailActivity extends AppCompatActivity {
             Glide.with(this).load(R.drawable.bookcover).into(bookImg);
         }
         else {
-
             bookImg.setImageBitmap(BitmapFactory.decodeFile(book.getBookImg()));
         }
 
@@ -64,7 +78,7 @@ public class BookDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(BookDetailActivity.this, AddBookActivity.class);
-                intent.putExtra("id", id +"");
+                intent.putExtra("id", bookId +"");
                 startActivity(intent);
             }
         });
@@ -80,7 +94,6 @@ public class BookDetailActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         AppDatabase.getAppDatabase(BookDetailActivity.this).bookDAO().delete(book);
                         finish();
-                    //    startActivity(new Intent(BookDetailActivity.this, MainActivity.class));
                     }
                 });
 
@@ -102,7 +115,7 @@ public class BookDetailActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
 
-        book = AppDatabase.getAppDatabase(BookDetailActivity.this).bookDAO().findByID(id);
+        book = AppDatabase.getAppDatabase(BookDetailActivity.this).bookDAO().findByID(bookId);
         Log.i("Book", book.getBookName());
         Log.i("Book1", book.getAuthorName());
         bookName.setText(book.getBookName());
@@ -120,5 +133,61 @@ public class BookDetailActivity extends AppCompatActivity {
             // bookImg.setImageURI(uri);
         }
         super.onResume();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_favourite, menu);
+
+        btnFavourite = (Button) menu.findItem(R.id.menu_favourite).getActionView();
+        int count = AppDatabase.getAppDatabase(BookDetailActivity.this).favouriteDAO().getFavourite(
+                sharedpreferences.getInt("id", -100),
+                Integer.parseInt(bookId));
+        if(count == 1) {
+            makeTintButton(btnFavourite, Color.RED);
+            isFavourite = true;
+        }
+        else {
+
+            makeTintButton(btnFavourite, Color.WHITE);
+        }
+
+        btnFavourite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isFavourite) {
+                    makeTintButton(btnFavourite, Color.WHITE);
+                    isFavourite = false;
+
+                    AppDatabase.getAppDatabase(BookDetailActivity.this).favouriteDAO().delete(
+                            sharedpreferences.getInt("id", -100),
+                            Integer.parseInt(bookId)
+                    );
+
+                }
+                else {
+
+                    makeTintButton(btnFavourite, Color.RED);
+
+                    isFavourite = true;
+                    AppDatabase.getAppDatabase(BookDetailActivity.this).favouriteDAO().insert(new Favourite(
+                                    sharedpreferences.getInt("id", -100),
+                                    Integer.parseInt(bookId)
+                            )
+
+                    );
+                }
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public void makeTintButton(Button btn, int color) {
+        Drawable buttonDrawable = btn.getBackground();
+        buttonDrawable = DrawableCompat.wrap(buttonDrawable);
+        //the color is a direct color int and not a color resource
+        DrawableCompat.setTint(buttonDrawable, color);
+        btnFavourite.setBackground(buttonDrawable);
     }
 }

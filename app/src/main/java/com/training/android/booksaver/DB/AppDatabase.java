@@ -6,18 +6,21 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 import com.training.android.booksaver.DAO.BookDAO;
+import com.training.android.booksaver.DAO.FavouriteDAO;
 import com.training.android.booksaver.DAO.UserDAO;
 import com.training.android.booksaver.Entity.Book;
 import com.training.android.booksaver.Entity.User;
+import com.training.android.booksaver.Entity.Favourite;
 
 
-@Database(entities = {Book.class, User.class}, version = 1, exportSchema = false)
+@Database(entities = {Book.class, User.class, Favourite.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;
 
     public abstract BookDAO bookDAO();
     public abstract UserDAO userDAO();
+    public abstract FavouriteDAO favouriteDAO();
 
     public static AppDatabase getAppDatabase(Context context) {
         if (INSTANCE == null) {

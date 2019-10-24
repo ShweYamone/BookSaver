@@ -34,7 +34,6 @@ public class ProfileActivity extends AppCompatActivity {
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
 
-//      int id = sharedpreferences.getInt("id", 100);
 
         ivUserPhoto = findViewById(R.id.ivUserPhoto);
         String photoPath = sharedpreferences.getString("photopath", "");

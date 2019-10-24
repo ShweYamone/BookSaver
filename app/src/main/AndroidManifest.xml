@@ -14,7 +14,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".activity.BookDetailActivity" />
         <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.LoginActivity"
+        <activity
+            android:name=".activity.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,14 +23,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.RegisterActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.ProfileActivity" />
         <activity android:name=".activity.AddBookActivity" />
         <activity
             android:name=".activity.UserEditActivity"
             android:label="@string/title_activity_user_edit"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.SearchActivity"></activity>
     </application>
 
 </manifest>

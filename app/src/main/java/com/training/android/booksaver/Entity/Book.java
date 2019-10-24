@@ -13,6 +13,9 @@ public class Book{
     @PrimaryKey(autoGenerate = true)
     private int id;
 
+    @ColumnInfo(name = "userId")
+    private int userId;
+
     @ColumnInfo(name = "bookName")
     private String bookName;
 
@@ -28,27 +31,24 @@ public class Book{
     @ColumnInfo(name = "description")
     private String description;
 
-    @ColumnInfo(name = "saved")
-    private String saved;
-
-    public Book(String bookName, String bookImg, String authorName, String category, String description, String saved) {
+    @Ignore
+    public Book(int id, int userId, String bookName, String bookImg, String authorName, String category, String description) {
+        this.id = id;
+        this.userId = userId;
         this.bookName = bookName;
         this.bookImg = bookImg;
         this.authorName = authorName;
         this.category = category;
         this.description = description;
-        this.saved = saved;
     }
 
-    @Ignore
-    public Book(int id, String bookName, String bookImg, String authorName, String category, String description, String saved) {
-        this.id = id;
+    public Book(int userId, String bookName, String bookImg, String authorName, String category, String description) {
+        this.userId = userId;
         this.bookName = bookName;
         this.bookImg = bookImg;
         this.authorName = authorName;
         this.category = category;
         this.description = description;
-        this.saved = saved;
     }
 
     public int getId() {
@@ -57,6 +57,14 @@ public class Book{
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getBookName() {
@@ -99,12 +107,5 @@ public class Book{
         this.description = description;
     }
 
-    public String getSaved() {
-        return saved;
-    }
-
-    public void setSaved(String saved) {
-        this.saved = saved;
-    }
 }
 

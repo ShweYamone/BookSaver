@@ -2,11 +2,12 @@
 package com.training.android.booksaver.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,15 +22,14 @@ import android.widget.Spinner;
 import com.bumptech.glide.Glide;
 import com.training.android.booksaver.DB.AppDatabase;
 import com.training.android.booksaver.Entity.Book;
+import com.training.android.booksaver.Entity.Favourite;
 import com.training.android.booksaver.R;
-
-import java.io.File;
-import java.net.URI;
 
 
 public class AddBookActivity extends AppCompatActivity {
 
-    private static final String TAG = "AddBookActivity";
+    SharedPreferences sharedpreferences;
+    public static final String mypreference = "mypref";
 
     public static final int GALLERY_REQUEST_CODE = 1;
 
@@ -44,6 +44,9 @@ public class AddBookActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book);
+
+        sharedpreferences = getSharedPreferences(mypreference,
+                Context.MODE_PRIVATE);
 
         ivBookPhoto = findViewById(R.id.ivBookPhoto);
 
@@ -72,7 +75,6 @@ public class AddBookActivity extends AppCompatActivity {
             else if(book.getCategory().equals("romance")) spCategory.setSelection(2);
             else if(book.getCategory().equals("comic")) spCategory.setSelection(3);
             else spCategory.setSelection(4);
-            final String saved = book.getSaved();
             final int id = book.getId();
             btnSave.setText("Update");
             btnSave.setOnClickListener(new View.OnClickListener() {
@@ -86,12 +88,11 @@ public class AddBookActivity extends AppCompatActivity {
                             bookFilePath,
                             etAuthorName.getText().toString(),
                             spCategory.getSelectedItem().toString(),
-                            etDescription.getText().toString(),
-                            saved)
+                            etDescription.getText().toString()
+                            )
 
                     );
                     finish();
-                    //startActivity(new Intent(AddBookActivity.this, BookDetailActivity.class));
                 }
             });
 
@@ -100,15 +101,16 @@ public class AddBookActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                    Log.i("BookFilePath", bookFilePath);
+
                     AppDatabase.getAppDatabase(AddBookActivity.this).bookDAO().insert(new Book(
+                            sharedpreferences.getInt("id", -100),
                             etBookName.getText().toString(),
                             bookFilePath,
                             etAuthorName.getText().toString(),
                             spCategory.getSelectedItem().toString(),
-                            etDescription.getText().toString(),
-                            "false"
+                            etDescription.getText().toString()
                     ));
+
                     finish();
                     //startActivity(new Intent(AddBookActivity.this, MainActivity.class));
 
