@@ -37,12 +37,10 @@ public class ProfileActivity extends AppCompatActivity {
 
         ivUserPhoto = findViewById(R.id.ivUserPhoto);
         String photoPath = sharedpreferences.getString("photopath", "");
-        if (photoPath.equals("")) {
-            Glide.with(ProfileActivity.this)
-                    .load(R.drawable.profile)
-                    .into(ivUserPhoto);
-        } else {
+        if (!photoPath.equals("")) {
             ivUserPhoto.setImageBitmap(BitmapFactory.decodeFile(photoPath));
+        } else {
+
         }
 
 

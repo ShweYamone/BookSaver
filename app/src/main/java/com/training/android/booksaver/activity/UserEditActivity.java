@@ -36,7 +36,7 @@ public class UserEditActivity extends AppCompatActivity {
     private EditText etUserName, etPassword, etRepassword;
     private Button btnUpdate, btnChoosePhoto;
     private ImageView ivUserPhoto;
-    String photoPath = "";
+    private String photoPath = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,14 +53,12 @@ public class UserEditActivity extends AppCompatActivity {
 
         ivUserPhoto = findViewById(R.id.ivUserPhoto);
 
-        String photoPath = sharedpreferences.getString("photopath", "");
-        if(photoPath.equals("")) {
-            Glide.with(UserEditActivity.this)
-                    .load(R.drawable.profile)
-                    .into(ivUserPhoto);
+        photoPath = sharedpreferences.getString("photopath", "");
+        if(!photoPath.equals("")) {
+            ivUserPhoto.setImageBitmap(BitmapFactory.decodeFile(photoPath));
         }
         else {
-            ivUserPhoto.setImageBitmap(BitmapFactory.decodeFile(photoPath));
+
         }
         etUserName = findViewById(R.id.etUserName);
         etUserName.setText(name);
@@ -77,7 +75,6 @@ public class UserEditActivity extends AppCompatActivity {
             }
         });
 
-        final String path = photoPath;
         btnUpdate = findViewById(R.id.btnUpdate);
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
@@ -88,14 +85,14 @@ public class UserEditActivity extends AppCompatActivity {
                                 id,
                                 etUserName.getText().toString(),
                                 etPassword.getText().toString(),
-                                path
+                                photoPath
                         )
                 );
 
                 SharedPreferences.Editor editor = sharedpreferences.edit();
-              //  editor.putInt("id",user.getId());
+                //  editor.putInt("id",user.getId());
                 editor.putString("name",etUserName.getText().toString());
-                editor.putString("photopath", path
+                editor.putString("photopath", photoPath
                 );
                 editor.commit();
                 finish();

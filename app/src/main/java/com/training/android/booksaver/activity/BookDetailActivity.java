@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,12 +35,14 @@ public class BookDetailActivity extends AppCompatActivity {
 
     public ImageView bookImg;
     public TextView bookName, authorName, category, description;
-    public Button btnEdit, btnDelete, btnFavourite;
+    public Button btnEdit, btnDelete;
+    public ImageView ivFavourite;
     private Book book;
     private String bookId = "";
 
     private Boolean isFavourite = false;
 
+    private ActionBar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +50,11 @@ public class BookDetailActivity extends AppCompatActivity {
 
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
+
+        toolbar = getSupportActionBar();
+        toolbar.setTitle("BookDetail");
+
+
 
         if(getIntent().getExtras().getString("id") != null) {
             bookId = getIntent().getExtras().getString("id");
@@ -139,24 +147,31 @@ public class BookDetailActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_favourite, menu);
 
-        btnFavourite = (Button) menu.findItem(R.id.menu_favourite).getActionView();
+
+        ivFavourite = (ImageView) menu.findItem(R.id.menu_favourite).getActionView();
         int count = AppDatabase.getAppDatabase(BookDetailActivity.this).favouriteDAO().getFavourite(
                 sharedpreferences.getInt("id", -100),
                 Integer.parseInt(bookId));
         if(count == 1) {
-            makeTintButton(btnFavourite, Color.RED);
+            Glide.with(BookDetailActivity.this)
+                    .load(R.drawable.redheart)
+                    .into(ivFavourite);
             isFavourite = true;
         }
         else {
-
-            makeTintButton(btnFavourite, Color.WHITE);
+            Glide.with(BookDetailActivity.this)
+                    .load(R.drawable.whiteheart)
+                    .into(ivFavourite);
         }
 
-        btnFavourite.setOnClickListener(new View.OnClickListener() {
+        ivFavourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(isFavourite) {
-                    makeTintButton(btnFavourite, Color.WHITE);
+
+                    Glide.with(BookDetailActivity.this)
+                            .load(R.drawable.whiteheart)
+                            .into(ivFavourite);
                     isFavourite = false;
 
                     AppDatabase.getAppDatabase(BookDetailActivity.this).favouriteDAO().delete(
@@ -167,7 +182,9 @@ public class BookDetailActivity extends AppCompatActivity {
                 }
                 else {
 
-                    makeTintButton(btnFavourite, Color.RED);
+                    Glide.with(BookDetailActivity.this)
+                            .load(R.drawable.redheart)
+                            .into(ivFavourite);
 
                     isFavourite = true;
                     AppDatabase.getAppDatabase(BookDetailActivity.this).favouriteDAO().insert(new Favourite(
@@ -183,11 +200,4 @@ public class BookDetailActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    public void makeTintButton(Button btn, int color) {
-        Drawable buttonDrawable = btn.getBackground();
-        buttonDrawable = DrawableCompat.wrap(buttonDrawable);
-        //the color is a direct color int and not a color resource
-        DrawableCompat.setTint(buttonDrawable, color);
-        btnFavourite.setBackground(buttonDrawable);
-    }
-}
+ }

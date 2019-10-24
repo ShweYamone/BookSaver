@@ -29,10 +29,12 @@ public class BooksFragment extends Fragment {
     SharedPreferences sharedpreferences;
     public static final String mypreference = "mypref";
 
-    private FloatingActionButton fab;
+
     private RecyclerView recyclerView;
     private BookAdapter adapter;
     private List<Book> bookList;
+
+    private FloatingActionButton fab;
 
     public BooksFragment() {
         // Required empty public constructor
@@ -68,7 +70,6 @@ public class BooksFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
-
         //floating button to add new book
         fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +79,9 @@ public class BooksFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+
+
 
         adapter.notifyDataSetChanged();
         return view;

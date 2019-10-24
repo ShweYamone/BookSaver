@@ -9,7 +9,7 @@
     <item
         android:id="@+id/navigation_own_books"
         android:icon="@drawable/nav_own"
-        android:title="@string/title_book" />
+        android:title="@string/nav_mybook" />
 
     <item
         android:id="@+id/navigation_favourite"

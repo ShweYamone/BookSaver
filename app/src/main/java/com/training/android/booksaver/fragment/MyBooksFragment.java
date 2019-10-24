@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -30,6 +31,8 @@ public class MyBooksFragment extends Fragment {
     private RecyclerView recyclerView;
     private BookAdapter adapter;
     private List<Book> bookList;
+
+
 
     public MyBooksFragment() {
         // Required empty public constructor
@@ -66,6 +69,9 @@ public class MyBooksFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+
+
+
 
         return view;
     }

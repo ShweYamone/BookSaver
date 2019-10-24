@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        toolbar.setTitle("Books");
+        toolbar.setTitle("All Books");
 
         loadFragment(new BooksFragment());
     }
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             Fragment fragment;
             switch (item.getItemId()) {
                 case R.id.navigation_public_books:
-                    toolbar.setTitle("Books");
+                    toolbar.setTitle("AllBooks");
                     fragment = new BooksFragment();
                     loadFragment(fragment);
                     return true;
@@ -97,4 +97,9 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
+    @Override
+    protected void onStart() {
+        loadFragment(new BooksFragment());
+        super.onStart();
+    }
 }

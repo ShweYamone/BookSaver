@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#444b54</color>
-    <color name="colorPrimaryDark">#444b54</color>
-    <color name="colorAccent">#FC6600</color>
+    <color name="colorPrimary">#160D08</color>
+    <color name="colorPrimaryDark">#201e1e</color>
+    <color name="colorAccent">#126801</color>
     <color name="window_background">#FFFFFF</color>
-    <color name="navigation_item">#FC6600</color>
-    <color name="text_main_color">#FC6600</color>
+    <color name="orange">#d55700</color>
+    <color name="lightgray">#caccce</color>
+    <color name="text_main_color">#126801</color>
 
 </resources>

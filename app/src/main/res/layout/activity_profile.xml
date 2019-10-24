@@ -13,30 +13,41 @@
         android:gravity="center">
         <ImageView
             android:id="@+id/ivUserPhoto"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:scaleType="fitXY"
             android:src="@drawable/profile" />
         <TextView
             android:id="@+id/tvUserName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="16dp"
+            android:textStyle="bold"
+            android:textSize="26dp"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp">
+            android:layout_marginTop="40dp">
             <Button
                 android:id="@+id/btnEdit"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="36dp"
                 android:text="Edit"
+                android:background="@drawable/round2corners"
+                android:backgroundTint="@color/colorPrimary"
+                android:textColor="@color/window_background"
+
                 android:layout_weight="1"/>
             <Button
                 android:id="@+id/btnLogOut"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="36dp"
                 android:text="Logout"
+                android:background="@drawable/round2corners"
+                android:backgroundTint="@color/colorPrimary"
+                android:textColor="@color/window_background"
                 android:layout_weight="1"/>
         </LinearLayout>
 

@@ -30,8 +30,9 @@
             android:gravity="center">
             <ImageView
                 android:id="@+id/ivUserPhoto"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:scaleType="fitXY"
                 android:src="@drawable/profile" />
             <Button
                 android:id="@+id/btnChoosePhoto"
@@ -40,8 +41,8 @@
                 android:padding="8dp"
                 android:text="choose photo"
                 android:textSize="7dp"
-                android:background="@color/colorAccent"
-                android:drawableRight="@drawable/smallplus"
+                android:background="@drawable/round4corners"
+                android:drawableLeft="@drawable/smallplus"
                 android:drawablePadding="12dp" />
             <EditText
                 android:id="@+id/etUserName"
@@ -67,7 +68,9 @@
                 android:id="@+id/btnUpdate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="36dp"
+                android:background="@color/colorAccent"
+                android:textColor="@color/window_background"
                 android:text="Update"/>
 
 

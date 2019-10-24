@@ -18,14 +18,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="12dp"
+                android:layout_margin="13dp"
                 android:orientation="vertical"
                 android:gravity="center">
                 <ImageView
                     android:id="@+id/ivBookPhoto"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:src="@drawable/bookcover"/>
+                    android:layout_width="133dp"
+                    android:layout_height="160dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/addphoto"/>
                 <EditText
                     android:id="@+id/etBookName"
                     android:layout_width="match_parent"
@@ -44,24 +45,36 @@
                 <Spinner
                     android:id="@+id/spCategory"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"/>
+                    android:layout_height="wrap_content"/>
+
 
                 <EditText
                     android:id="@+id/etDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minLines="1"
-                    android:maxLines="5"
-                    android:scrollbars="vertical"
+                    android:gravity="top|left"
                     android:inputType="textMultiLine"
-                    android:hint="type description...."/>
+                    android:overScrollMode="always"
+                    android:scrollbarStyle="insideInset"
+                    android:scrollbars="vertical"
+                    android:lines="6"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:background="@drawable/round4corners"
+                    android:backgroundTint="@color/lightgray"
+                    android:textColor="@color/colorAccent"
+                    android:scrollHorizontally="false"
+                    android:hint="Type Description here"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"/>
+
 
                 <Button
                     android:id="@+id/btnSave"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/window_background"
+                    android:backgroundTint="@color/colorAccent"
+                    android:layout_marginTop="3dp"
                     android:text="Save"/>
 
             </LinearLayout>

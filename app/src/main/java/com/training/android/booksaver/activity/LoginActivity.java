@@ -36,12 +36,12 @@ public class LoginActivity extends AppCompatActivity {
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
 
-        /*
+
         if(sharedpreferences.contains("id")) {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         }
-        else {*/
+        else {
 
             etName = findViewById(R.id.etName);
             etPassword = findViewById(R.id.etPassword);
@@ -96,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
             isWriteStoragePermissionGranted();
-
+        }
 
     }
 
