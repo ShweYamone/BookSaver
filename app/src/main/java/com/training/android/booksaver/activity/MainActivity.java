@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_profile:
-                    toolbar.setTitle("AllBooks");
+                    finish();
                     Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
                     startActivity(intent);
                     return true;
