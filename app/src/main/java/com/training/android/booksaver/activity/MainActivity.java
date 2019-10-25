@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_profile:
+                    toolbar.setTitle("AllBooks");
                     Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
                     startActivity(intent);
                     return true;
@@ -97,9 +98,4 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
-    @Override
-    protected void onStart() {
-        loadFragment(new BooksFragment());
-        super.onStart();
-    }
 }
